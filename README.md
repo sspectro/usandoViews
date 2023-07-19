@@ -25,6 +25,26 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
 
     ---
 
+2. <span style="color:383E42"><b>Suporte ao processamento de Views e RuntimeCompilation</b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <p>
+
+    1. Habilitar suporte ao processamento de views - em Program.cs
+    2. Criação arquivo `global.json`
+        ```sh
+        // Add services to the container.
+        builder.Services.AddControllersWithViews();
+        ```
+    3. Habilitar RuntimeCompilation - Instalar pacote para que o projeto reflita as alterações feitas imediatamente - Obs.: Somente alterações nas Views
+        ```sh
+        dotnet add package Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation --version 6.0.0
+        ```
+    </p>
+
+    </details> 
+
+    ---
+
 
 
 ## Meta
