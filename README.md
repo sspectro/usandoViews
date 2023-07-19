@@ -82,6 +82,55 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
 
 
 
+4. <span style="color:383E42"><b>Criar pastas/arquivo para Controllers e Views </b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <p>
+
+    1. Criar pasta Controllers e arquivo HomeController.cs
+        ```cs
+        using Microsoft.AspNetCore.Mvc;
+        namespace UsandoViews.Controllers
+        {
+            public class HomeController : Controller
+            {
+                public IActionResult Index()
+                {
+                    return View();
+                }
+            }
+        }
+        ```
+    2. Criar pastas Views/Home e arquivo Index.cshtml
+        ```html
+        <!DOCTYPE html>
+        <html lang="pt-br">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Página Principal</title>
+        </head>
+
+        <body>
+            <h1>Página Principal</h1>
+            <p>Bem vindo ao ASP.NET Core 5!</p>
+        </body>
+
+        </html>
+        ```
+    3. Testar
+        ```sh
+        dotnet run --project .\usandoViews.csproj
+        ou
+        dotnet run
+        ```
+
+    </p>
+
+    </details> 
+
+    ---
+
 ## Meta
 ><span style="color:383E42"><b>Cristiano Mendonça Gueivara</b> </span>
 >
