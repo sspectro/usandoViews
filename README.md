@@ -29,16 +29,51 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
     <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
 
-    1. Habilitar suporte ao processamento de views - em Program.cs
-    2. Criação arquivo `global.json`
-        ```sh
-        // Add services to the container.
-        builder.Services.AddControllersWithViews();
-        ```
-    3. Habilitar RuntimeCompilation - Instalar pacote para que o projeto reflita as alterações feitas imediatamente - Obs.: Somente alterações nas Views
+    1. Habilitar RuntimeCompilation - Instalar pacote para que o projeto reflita as alterações feitas imediatamente - Obs.: Somente alterações nas Views
         ```sh
         dotnet add package Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation --version 6.0.0
         ```
+    2. Habilitar suporte ao processamento de views - em Program.cs
+    e incluir configuração do RazorRuntime
+        ```sh
+        // Add services to the container.
+        builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+        ```
+    </p>
+
+    </details> 
+
+    ---
+
+3. <span style="color:383E42"><b>Incluir middleware em Program -  ExceptionPage - StaticFiles - UseRouting - Route</b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <p>
+
+    ```cs
+    var builder = WebApplication.CreateBuilder(args);
+    // Add services to the container.
+    builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+    var app = builder.Build();
+
+    // Detalhes de exceções não tratadas
+    // Como é uma aplicação que não será publica num servidor real, sempre mostrará os erros
+    app.UseDeveloperExceptionPage();
+
+    app.UseStaticFiles();
+
+    app.UseRouting();
+
+    app.UseAuthorization();
+
+    app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+    // Mesmo resultado que acima
+    //app.MapDefaultControllerRoute();
+    app.Run();
+
+    ```
     </p>
 
     </details> 
