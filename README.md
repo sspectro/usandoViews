@@ -131,6 +131,40 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
 
     ---
 
+5. <span style="color:383E42"><b>Instalação [LibMan](https://learn.microsoft.com/pt-br/aspnet/core/client-side/libman/libman-cli?view=aspnetcore-7.0), Bootstrap5 e criação arquivo libman.json</b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span>
+    </summary>
+    <p>
+
+    1. Cria arquivo com indicação `libman.json` padrão para onde buscar as bibliotecas - neste caso o jsdelivr - onde encontramos bootrap e outros
+        ```sh
+        dotnet tool install -g Microsoft.Web.LibraryManager.Cli
+        libman init -p jsdelivr
+        ```
+    2. Instala o bootstrap5 e cria diretorio wwwroot - bibliotecas client side devem fica dentro da pasta lib
+        ```sh
+        libman install bootstrap -d wwwroot/lib/bootstrap5
+        ```
+    </p>
+
+    </details> 
+
+    ---
+
+6. <span style="color:383E42"><b>Configurar vs code para auto/code complete bootstrap</b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <p>
+
+    1. Instale o plugin "IntelliSense for CSS class names in HTML"
+        >No vs code pressione shift+ctr+p. Procure por cache - selecione "Cache CSS class definitions"
+        para atualizar o cache.
+    2. Envolver um trecho de html por algum elemento
+        >Selecione o trecho html que deseja -  shift+ctr+p
+        procure por "wrap" - Selecione "Emmet: Wrap with Abbreviation" - Informar o elemento.
+        Pode configurar uma combinação de teclas para estes comandos:
+        shift+ctr+p -> wrap - Emmet: Wrap with Abbreviation - clicar na engrenagem colocar combinação desejada "shift+alt+w"
+
+
 ## Meta
 ><span style="color:383E42"><b>Cristiano Mendonça Gueivara</b> </span>
 >
