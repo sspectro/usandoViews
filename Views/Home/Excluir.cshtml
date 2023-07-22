@@ -1,0 +1,31 @@
+@model UsandoViews.Models.Usuario
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/lib/bootstrap5/dist/css/bootstrap.css">
+    <title>Exclusão de Usuário</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="text-primary">Exclusão de Usuário</h1>
+        <hr>
+        <h4>Deseja realmente excluir o usuário <span class="text-danger">@Model.Nome?</span></h4>
+        <form method="POST" class="w-25" action="">
+            <input type="hidden" asp-for="IdUsuario">
+            <div class="mt-3">
+                <a asp-action="Usuarios" class="btn btn-success">Não</a>
+                <button class="btn btn-danger" type="submit">Sim</button>
+            </div>
+        </form>
+
+    </div>
+</body>
+
+</html>

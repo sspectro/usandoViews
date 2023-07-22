@@ -1,0 +1,43 @@
+@model UsandoViews.Models.Usuario
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/lib/bootstrap5/dist/css/bootstrap.css">
+    <title>Cadastro de Usuário</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="text-primary">Cadastro de Usuário</h1>
+        <hr>
+        <form method="POST" class="w-25" action="">
+            @*Boa prática colocar id no corpo da página - para não depender do parametro da rota*@
+            <input type="hidden" asp-for="IdUsuario">
+            <div class="form-group">
+                @* <label for="txtNome">Nome:</label><br> *@
+                <label asp-for="Nome">Nome:</label><br>
+                @* <input type="text" class="form-control" name="Nome" id="txtNome" value="@Model.Nome"> *@
+                <input asp-for="Nome" class="form-control">
+            </div>
+            <div class="form-group">
+                @* <label for="txtEmail">E-mail:</label><br> *@
+                <label asp-for="Email">E-mail:</label><br>
+                @* <input type="text" class="form-control" name="Email" id="txtEmail" value="@Model.Email"> *@
+                <input asp-for="Email" class="form-control">
+            </div>
+            <div class="mt-3">
+                <a href="/Home/Usuarios" class="btn btn-light">Usuário</a>
+                <button class="btn btn-primary" type="submit">Salvar</button>
+            </div>
+        </form>
+
+    </div>
+</body>
+
+</html>

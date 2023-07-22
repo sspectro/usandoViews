@@ -1,5 +1,19 @@
 # Usando Views em Aspnet Core 6 C#
 
+<!-- Variáveis de Referência-->
+{% capture nameOfVariableToCapture %}`OOPPPP`{% endcapture %}
+
+Content before variable.
+{{ nameOfVariableToCapture }}
+Content after variable.
+
+
+
+Nome: Cris
+
+{{Nome}}
+
+
 >Criando uma aplicação AspNet Core 6 C# - usandoViews - Treinamento Youtube Ricardo Maroquio. 
 > 
 >>Ricardo Maroquio [Desenvolvimento Web com ASP.NET - Criando a Aplicação Web Partindo de um Template Mínimo](https://www.youtube.com/watch?v=qom0aOGSDRs&list=PL0YuSuacUEWuN8xnvk2b5yW_koKbkHh_m&index=8)
@@ -163,6 +177,109 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
         procure por "wrap" - Selecione "Emmet: Wrap with Abbreviation" - Informar o elemento.
         Pode configurar uma combinação de teclas para estes comandos:
         shift+ctr+p -> wrap - Emmet: Wrap with Abbreviation - clicar na engrenagem colocar combinação desejada "shift+alt+w"
+    </p>
+
+    </details> 
+
+    ---
+
+7. ### <span style="color:383E42"><b>Criando CRUD</b></span>
+    <!-- <details><summary><span style="color:Chocolate">Detalhes</span></summary> -->
+    <p>
+
+    1. Criar a `Views/Home/Cadastrar.cshtml`
+        ```html
+        <!DOCTYPE html>
+        <html lang="pt-br">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="/lib/bootstrap5/dist/css/bootstrap.css">
+            <title>Cadastro de Usuário</title>
+        </head>
+
+        <body>
+
+            <div class="container">
+                <h1 class="text-primary">Cadastro de Usuário</h1>
+                <hr>
+                <form method="POST" class="w-25" action="">
+                    <div class="form-group">
+                        <label for="txtNome">Nome:</label><br>
+                        <input type="text" class="form-control" name="Nome" id="txtNome">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtEmail">E-mail:</label><br>
+                        <input type="text" class="form-control" name="Email" id="txtEmail">
+                    </div>
+                    <div class="mt-3">
+                        <button class="btn btn-primary" type="submit">Salvar</button>
+                    </div>
+                </form>
+
+            </div>
+        </body>
+
+        </html>
+        ```
+    2. Criar Pasta Momdels e Modelo/classe `Usuario.cs`
+        Cria Modelo com uma lista de usuários que são adicionados no construtor.
+        ```cs
+        namespace UsandoViews.Models
+        {
+            public class Usuario
+            {
+                public int Id { get; set; }
+                public string Nome { get; set; }
+                public string Email { get; set; }
+                private static List<Usuario> listagem = new List<Usuario>();
+                // Lista de usuário apenas para consulta
+                public static IQueryable<Usuario> Listagem
+                {
+                    get
+                    {
+                        return listagem.AsQueryable();
+                    }
+                }
+                
+                static Usuario()
+                {
+                    Usuario.listagem.Add(
+                        new Usuario { Id = 1, Nome = "Fulano", Email = "fulano@email.com" });
+                    Usuario.listagem.Add(
+                        new Usuario { Id = 2, Nome = "Cicrano", Email = "cicrano@email.com" });
+                    Usuario.listagem.Add(
+                        new Usuario { Id = 3, Nome = "Beltrano", Email = "beltrano@email.com" });
+                    Usuario.listagem.Add(
+                        new Usuario { Id = 3, Nome = "João", Email = "joao@email.com" });
+                    Usuario.listagem.Add(
+                        new Usuario { Id = 3, Nome = "Maria", Email = "maria@email.com" });
+                }
+            }
+        }
+        ```
+    3. Criar IActionResult Cadastrar
+        ```cs
+        //Parametro id da url é opcional, por isso deve ser do tipo anulável -?-
+        //Quando não é passado na rota, esse parametro vai entrar como valor nulo
+        public IActionResult Cadastrar(int? id)
+        {
+            var usuario = new Usuario();
+            if (id.HasValue)
+            {
+                if (Usuario.Listagem.Any(u => u.Id == id))
+                    usuario = Usuario.Listagem.Single(u => u.Id == id);
+            }
+            return View(usuario);
+        }
+        ```
+    4. Testar abrir form sem passar parametro na url e passando parametro
+    </p>
+
+    </details> 
+    ---
+
 
 
 ## Meta
