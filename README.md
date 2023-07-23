@@ -1,19 +1,5 @@
 # Usando Views em Aspnet Core 6 C#
 
-<!-- Variáveis de Referência-->
-{% capture nameOfVariableToCapture %}`OOPPPP`{% endcapture %}
-
-Content before variable.
-{{ nameOfVariableToCapture }}
-Content after variable.
-
-
-
-Nome: Cris
-
-{{Nome}}
-
-
 >Criando uma aplicação AspNet Core 6 C# - usandoViews - Treinamento Youtube Ricardo Maroquio. 
 > 
 >>Ricardo Maroquio [Desenvolvimento Web com ASP.NET - Criando a Aplicação Web Partindo de um Template Mínimo](https://www.youtube.com/watch?v=qom0aOGSDRs&list=PL0YuSuacUEWuN8xnvk2b5yW_koKbkHh_m&index=8)
@@ -114,7 +100,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
             }
         }
         ```
-    2. Criar pastas Views/Home e arquivo Index.cshtml
+    2. size="2">Criar pastas Views/Home e arquivo Index.cshtml
         ```html
         <!DOCTYPE html>
         <html lang="pt-br">
@@ -170,13 +156,13 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
     <p>
 
     1. Instale o plugin "IntelliSense for CSS class names in HTML"
-        >No vs code pressione shift+ctr+p. Procure por cache - selecione "Cache CSS class definitions"
+        ><font size="2">No vs code pressione shift+ctr+p. Procure por cache - selecione "Cache CSS class definitions"</font>
         para atualizar o cache.
     2. Envolver um trecho de html por algum elemento
-        >Selecione o trecho html que deseja -  shift+ctr+p
+        ><font size="2">Selecione o trecho html que deseja -  shift+ctr+p
         procure por "wrap" - Selecione "Emmet: Wrap with Abbreviation" - Informar o elemento.
         Pode configurar uma combinação de teclas para estes comandos:
-        shift+ctr+p -> wrap - Emmet: Wrap with Abbreviation - clicar na engrenagem colocar combinação desejada "shift+alt+w"
+        shift+ctr+p -> wrap - Emmet: Wrap with Abbreviation - clicar na engrenagem colocar combinação desejada "shift+alt+w"</font>
     </p>
 
     </details> 
@@ -184,7 +170,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
     ---
 
 7. ### <span style="color:383E42"><b>Criando CRUD</b></span>
-    <!-- <details><summary><span style="color:Chocolate">Detalhes</span></summary> -->
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
 
     1. Criar a `Views/Home/Cadastrar.cshtml`
@@ -223,8 +209,8 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
 
         </html>
         ```
-    2. Criar Pasta Momdels e Modelo/classe `Usuario.cs`
-        Cria Modelo com uma lista de usuários que são adicionados no construtor.
+    2. Criar Pasta Models e Modelo/classe `Usuario.cs`
+        <font size="2">Cria Modelo com uma lista de usuários que são adicionados no construtor.</font>
         ```cs
         namespace UsandoViews.Models
         {
@@ -274,7 +260,140 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
             return View(usuario);
         }
         ```
-    4. Testar abrir form sem passar parametro na url e passando parametro
+    4. Testar abrir form sem passar parâmetro (Id) na url - Testar passando parâmetro.
+    5. Informar o modelo que a view irá receber e TagHelper em Cadastrar.cshtml:
+        <font size="2">
+        No topo antes do código html - Cadastrar.cshtml. Melhora o code complete - identifica erro, caso não reconheça o campo como do modelo. Não há necessidade de passar um objeto vazio para view, Pois a view já faz isso automaticamente. Mas deve usar tag helper nos campos</font>
+
+        ```htm
+        @model UsandoViews.Models.Usuario
+        @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+        ```
+    6. Criar action "Usuarios()" em HomeController.cs:
+        <font size="2">Retorna lista de usuários para view Usuarios.cshtml</font>
+        ```cs
+        public IActionResult Usuarios()
+        {
+            return View(Usuario.Listagem);
+        }
+        ```
+    7. Criar view Usuarios.cshtml:
+        <font size="2">Exibe a lista de usuários e permite edição:</font>
+        ```html
+        @model IQueryable<UsandoViews.Models.Usuario>
+        @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+        <!DOCTYPE html>
+        <html lang="pt-br">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="/lib/bootstrap5/dist/css/bootstrap.css">
+            <title>Usuários</title>
+        </head>
+
+        <body>
+
+            <div class="container">
+                <h1 class="text-primary">Usuários</h1>
+                <hr>
+                <a href="/Home/Cadastrar" class="btn btn-primary">Novo Usuário</a>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var u in Model)
+                        {
+                            <tr>
+                                <td>@u.Nome</td>
+                                <td>@u.Email</td>
+                                <td>
+                                    <a asp-action="Cadastrar" asp-route-id="@u.IdUsuario"
+                                        class="btn btn-sm btn-secondary">Alterar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </body>
+
+        </html>
+        ```
+    8. Adicionar action `Cadastrar` do tipo Post em HomeController.cs:
+        <font size="2">Action Responsável por salvar o Usuário - Recebe objeto usuário como parâmetro.</font>
+        ```cs
+        [HttpPost]
+        public IActionResult Cadastrar(Usuario usuario)
+        {
+            Usuario.Salvar(usuario);
+            return RedirectToAction("Usuarios");
+        }
+        ```
+    9. Adicionar metodo "Salvar" em Usuario.cs:
+        <font size="2">Método responsável por adicionar objeto na lista de Usuários.</font>
+        ```cs
+        public static void Salvar(Usuario usuario)
+        {
+            var usuarioExistente = Usuario.listagem.Find(u => u.IdUsuario == usuario.IdUsuario);
+            if (usuarioExistente != null)
+            {
+                usuarioExistente.Nome = usuario.Nome;
+                usuarioExistente.Email = usuario.Email;
+            }
+            else
+            {
+                int maiorId = Usuario.Listagem.Max(u => u.IdUsuario);
+                usuario.IdUsuario = maiorId + 1;
+                Usuario.listagem.Add(usuario);
+            }
+        }
+        ```
+    10. Adicionar botão "Ecluir" junto ao botão salvar view Usuarios.cshtml:
+        <font size="2">Método responsável por adicionar objeto na lista de Usuários.</font>
+        ```html
+        <a asp-action="Excluir" asp-route-id="@u.IdUsuario" class="btn btn-sm btn-danger">Excluir</a>
+        ```
+    11. Método responsáve pela exclusão do usuários da lista:
+        ```cs
+        public static void Excluir(int IdUsuario)
+        {
+            var usuarioExistente = Usuario.listagem.Find(u => u.IdUsuario == IdUsuario);
+            if (usuarioExistente != null)
+            {
+                Usuario.listagem.Remove(usuarioExistente);
+            }
+        }
+        ```
+    12. Adicionar action "Excluir" do tipo Get e Post ao HomeController.cs:
+        <font size="2">Método do tipo Get exibe a view "Excluir" logo após clicar em "Excluir" no usuário na tabela - Ao confirmar, executa o submit - que usa o método do tipo Post, que então efetua a exclusão.</font>
+        ```cs
+        [HttpGet]
+        public IActionResult Excluir(int? id)
+        {
+            var usuario = new Usuario();
+            if (id.HasValue && Usuario.Listagem.Any(u => u.IdUsuario == id))
+            {
+                usuario = Usuario.Listagem.Single(u => u.IdUsuario == id);
+                return View(usuario);
+            }
+            return RedirectToAction("Usuarios");
+        }
+
+        [HttpPost]
+        public IActionResult Excluir(Usuario usuario)
+        {
+            Usuario.Excluir(usuario.IdUsuario);
+            return RedirectToAction("Usuarios");
+        }
+        ```
     </p>
 
     </details> 
