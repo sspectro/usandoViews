@@ -5,6 +5,26 @@
 >>Ricardo Maroquio [Desenvolvimento Web com ASP.NET - Criando a Aplicação Web Partindo de um Template Mínimo](https://www.youtube.com/watch?v=qom0aOGSDRs&list=PL0YuSuacUEWuN8xnvk2b5yW_koKbkHh_m&index=8)
 Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
 
+## Publicação no Azure App Services:
+1. <span style="color:383E42"><b>Criar App Service</b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <p>
+
+    1. Inclusão README (estrutura básica), gitignore e imagens para o README
+    2. Criação arquivo `global.json`
+        ```sh
+        dotnet new globaljson --sdk-version 6.0
+        ```
+    3. Criar Projeto web com template mínimo
+        ```sh
+        dotnet new web --no-https --framework net6.0
+        ```
+    </p>
+
+    </details> 
+
+    ---
+
 ## Desenvolvimento:
 1. <span style="color:383E42"><b>Incluir/Criar arquivos iniciais</b></span>
     <details><summary><span style="color:Chocolate">Detalhes</span></summary>
@@ -169,7 +189,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
 
     ---
 
-7. ### <span style="color:383E42"><b>Criando CRUD</b></span>
+7. <span style="color:383E42"><b>Criando CRUD</b></span>
     <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
 
@@ -397,9 +417,103 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
     </p>
 
     </details> 
+    
     ---
 
+8. <span style="color:383E42"><b>Usando Páginas de Layout e ViewBag em um CRUD</b></span>
+    <!-- <details><summary><span style="color:Chocolate">Detalhes</span></summary> -->
+    <p>
 
+    - Criar pasta shared e arquivo `Views\Shared\_Layout.cshtml`
+        `_Layout` contém o `hml` padrão para todas as views
+        - Inluído [navbar bootstrap5](https://getbootstrap.com/docs/5.0/components/navbar/)
+        - Incluir fundo escuro navbar - `<nav class="navbar navbar-expand-lg navbar-dark bg-dark">`
+        - Incluir opção `Cadastrar` - `<a class="nav-link" asp-action="Cadastrar">Cadastrar</a>`
+        - Uso de ViewBag `<title>Usuário :: @ViewBag.Subtitulo</title>`
+        ```c#
+        @{
+            var actionAtual = ViewContext.RouteData.Values["action"].ToString();
+        }
+
+        <!DOCTYPE html>
+        <html lang="pt-br">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="/lib/bootstrap5/dist/css/bootstrap.css">
+            <title>Usuário :: @ViewBag.Subtitulo</title>
+        </head>
+
+        <body>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="#">Controle de Usuários</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarMain">
+                        <div class="navbar-nav">
+                            <a class="nav-link @(actionAtual == "Index" ? "active" : "")" asp-action="Index">Home</a>
+                            <a class="nav-link @(actionAtual == "Usuarios" ? "active" : "")"" asp-action="
+                                Usuarios">Usuários</a>
+                            <a class="nav-link @(actionAtual == "Cadastrar" ? "active" : "")"" asp-action="
+                                Cadastrar">Cadastro</a>
+
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container mt-2">
+                @RenderBody()
+            </div>
+        </body>
+
+        </html>
+        ```
+    - Criar view `Views\_ViewStart.cshtml` 
+        Para conter os códigos repetitivos, diminuindo a redundância - Arquivo que por convenção é executado primeiro na renderização de todas as views.
+        É incluído de forma automática em todas as views. Então podemos Colocar neste arquivo a configurção `Layout`
+        ```C#
+        @{
+            Layout = "_Layout";
+        }
+        ```
+    
+    - Criar view `Views\_ViewImports.cshtml` 
+        Também para diminuir redundância, tirando códigos repetitivos das outras views e concentrando nesta.
+        Adicionado `tagHelper`
+        ```C#
+        @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+        @namespace UsandoViews.Models
+        ```
+
+    - View `Views\Home\Index.cshtml` modificada e incluído uso de `ViewBag`
+        ```C#
+        @{
+            ViewBag.Subtitulo = "Página Principal";
+        }
+
+        <h1 class="text-primary">CRUD com ASP.NET Core</h1>
+        <hr>
+        <h3 class="text-info">Usuários Cadastrados: @ViewBag.QtdeUsuarios</h3>
+        <a href="/Home/Usuarios" class="btn btn-primary">Usuário</a>
+        ```
+
+    - Atribuindo valor a  `ViewBag.QtdeUsuarios` em Action Index `Controllers\HomeController.cs`
+        ```C#
+        public IActionResult Index()
+        {
+            ViewBag.QtdeUsuarios = Usuario.Listagem.Count();
+            return View();
+        }
+        ```
+    </p>
+
+    </details> 
+    
+    ---
 
 ## Meta
 ><span style="color:383E42"><b>Cristiano Mendonça Gueivara</b> </span>

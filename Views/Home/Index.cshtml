@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+@{
+    ViewBag.Subtitulo = "Página Principal";
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/lib/bootstrap5/dist/css/bootstrap.css">
-    <title>Página Principal</title>
-</head>
-
-<body>
-
-    <div class="container">
-        <h1 class="text-primary">CRUD com ASP.NET Core</h1>
-        <hr>
-        <a href="/Home/Usuarios" class="btn btn-primary">Usuário</a>
-    </div>
-</body>
-
-</html>
+<h1 class="text-primary">CRUD com ASP.NET Core</h1>
+<hr>
+<h3 class="text-info">Usuários Cadastrados: @ViewBag.QtdeUsuarios</h3>
+<a href="/Home/Usuarios" class="btn btn-primary">Usuário</a>
