@@ -1,4 +1,4 @@
-# Usando Views em Aspnet Core 6 C#
+# Usando Views em Aspnet Core 6 e Bootstrap5 C#
 
 >Criando uma aplicação AspNet Core 6 C# - usandoViews - Treinamento Youtube Ricardo Maroquio. 
 > 
@@ -155,6 +155,8 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
     <details><summary><span style="color:Chocolate">Detalhes</span>
     </summary>
     <p>
+
+    Após execução da instalação do libman, deve reiniciar projeto ou fechar e abrir terminal novamente para executar os próximos comandos
 
     1. Cria arquivo com indicação `libman.json` padrão para onde buscar as bibliotecas - neste caso o jsdelivr - onde encontramos bootrap e outros
         ```sh
