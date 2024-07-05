@@ -16,6 +16,13 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">
+                @if (IsSectionDefined("LogoPagina"))
+                {
+                    @RenderSection("LogoPagina", false)
+                }else
+                {
+                    <img src="/img/pagina.png" height="24" class="d-inline-block align-text-bottom">
+                }
                 Controle de Usuários
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
@@ -34,6 +41,10 @@
 
     <div class="container mt-2">
         @RenderBody()
+    </div>
+    <div class="text-light bg-dark p-3 fixed-bottom text-center">
+        Todos os direitos reservados<br>
+        @RenderSection("Footer",false)
     </div>
 
     @* O parâmetro false, indica que não é obrigatório existir esta section nas páginas que herdam _Layout. As views só definem se quiserem *@

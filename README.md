@@ -23,7 +23,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
         ```sh
         dotnet new globaljson --sdk-version 6.0
         ```
-    3. Criar Projeto web com template mínimo
+    3. Criar Projeto web com template mínimo  
         ```sh
         dotnet new web --no-https --framework net6.0
         ```
@@ -42,7 +42,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
         dotnet add package Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation --version 6.0.0
         ```
     2. Habilitar suporte ao processamento de views - em Program.cs
-    e incluir configuração do RazorRuntime
+    e incluir configuração do RazorRuntime  
         ```sh
         // Add services to the container.
         builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
@@ -94,7 +94,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
     <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
 
-    1. Criar pasta Controllers e arquivo HomeController.cs
+    1. Criar pasta Controllers e arquivo HomeController.cs  
         ```cs
         using Microsoft.AspNetCore.Mvc;
         namespace UsandoViews.Controllers
@@ -108,7 +108,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
             }
         }
         ```
-    2. size="2">Criar pastas Views/Home e arquivo Index.cshtml
+    2. size="2">Criar pastas Views/Home e arquivo Index.cshtml  
         ```html
         <!DOCTYPE html>
         <html lang="pt-br">
@@ -126,7 +126,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
 
         </html>
         ```
-    3. Testar
+    3. Testar  
         ```sh
         dotnet run --project .\usandoViews.csproj
         ou
@@ -144,14 +144,14 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
     </summary>
     <p>
 
-    Após execução da instalação do libman, deve reiniciar projeto ou fechar e abrir terminal novamente para executar os próximos comandos
+    Após execução da instalação do libman, deve reiniciar projeto ou fechar e abrir terminal novamente para executar os próximos comandos  
 
-    1. Cria arquivo com indicação `libman.json` padrão para onde buscar as bibliotecas - neste caso o jsdelivr - onde encontramos bootrap e outros
+    1. Cria arquivo com indicação `libman.json` padrão para onde buscar as bibliotecas - neste caso o jsdelivr - onde encontramos bootrap e outros  
         ```sh
         dotnet tool install -g Microsoft.Web.LibraryManager.Cli
         libman init -p jsdelivr
         ```
-    2. Instala o bootstrap5 e cria diretorio wwwroot - bibliotecas client side devem fica dentro da pasta lib
+    2. Instala o bootstrap5 e cria diretorio wwwroot - bibliotecas client side devem fica dentro da pasta lib  
         ```sh
         libman install bootstrap -d wwwroot/lib/bootstrap5
         ```
@@ -165,10 +165,10 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
     <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
 
-    1. Instale o plugin "IntelliSense for CSS class names in HTML"
+    1. Instale o plugin "IntelliSense for CSS class names in HTML"  
         ><font size="2">No vs code pressione shift+ctr+p. Procure por cache - selecione "Cache CSS class definitions"</font>
         para atualizar o cache.
-    2. Envolver um trecho de html por algum elemento
+    2. Envolver um trecho de html por algum elemento  
         ><font size="2">Selecione o trecho html que deseja -  shift+ctr+p
         procure por "wrap" - Selecione "Emmet: Wrap with Abbreviation" - Informar o elemento.
         Pode configurar uma combinação de teclas para estes comandos:
@@ -183,7 +183,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
     <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
 
-    1. Criar a `Views/Home/Cadastrar.cshtml`
+    1. Criar a `Views/Home/Cadastrar.cshtml`  
         ```html
         <!DOCTYPE html>
         <html lang="pt-br">
@@ -219,7 +219,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
 
         </html>
         ```
-    2. Criar Pasta Models e Modelo/classe `Usuario.cs`
+    2. Criar Pasta Models e Modelo/classe `Usuario.cs`  
         <font size="2">Cria Modelo com uma lista de usuários que são adicionados no construtor.</font>
         ```cs
         namespace UsandoViews.Models
@@ -255,7 +255,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
             }
         }
         ```
-    3. Criar IActionResult Cadastrar
+    3. Criar IActionResult Cadastrar  
         ```cs
         //Parametro id da url é opcional, por isso deve ser do tipo anulável -?-
         //Quando não é passado na rota, esse parametro vai entrar como valor nulo
@@ -271,7 +271,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
         }
         ```
     4. Testar abrir form sem passar parâmetro (Id) na url - Testar passando parâmetro.
-    5. Informar o modelo que a view irá receber e TagHelper em Cadastrar.cshtml:
+    5. Informar o modelo que a view irá receber e TagHelper em Cadastrar.cshtml:  
         <font size="2">
         No topo antes do código html - Cadastrar.cshtml. Melhora o code complete - identifica erro, caso não reconheça o campo como do modelo. Não há necessidade de passar um objeto vazio para view, Pois a view já faz isso automaticamente. Mas deve usar tag helper nos campos</font>
 
@@ -279,7 +279,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
         @model UsandoViews.Models.Usuario
         @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
         ```
-    6. Criar action "Usuarios()" em HomeController.cs:
+    6. Criar action "Usuarios()" em HomeController.cs:  
         <font size="2">Retorna lista de usuários para view Usuarios.cshtml</font>
         ```cs
         public IActionResult Usuarios()
@@ -287,7 +287,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
             return View(Usuario.Listagem);
         }
         ```
-    7. Criar view Usuarios.cshtml:
+    7. Criar view Usuarios.cshtml:  
         <font size="2">Exibe a lista de usuários e permite edição:</font>
         ```html
         @model IQueryable<UsandoViews.Models.Usuario>
@@ -337,7 +337,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
 
         </html>
         ```
-    8. Adicionar action `Cadastrar` do tipo Post em HomeController.cs:
+    8. Adicionar action `Cadastrar` do tipo Post em HomeController.cs:  
         <font size="2">Action Responsável por salvar o Usuário - Recebe objeto usuário como parâmetro.</font>
         ```cs
         [HttpPost]
@@ -347,7 +347,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
             return RedirectToAction("Usuarios");
         }
         ```
-    9. Adicionar metodo "Salvar" em Usuario.cs:
+    9. Adicionar metodo "Salvar" em Usuario.cs:  
         <font size="2">Método responsável por adicionar objeto na lista de Usuários.</font>
         ```cs
         public static void Salvar(Usuario usuario)
@@ -366,12 +366,12 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
             }
         }
         ```
-    10. Adicionar botão "Ecluir" junto ao botão salvar view Usuarios.cshtml:
+    10. Adicionar botão "Ecluir" junto ao botão salvar view Usuarios.cshtml:  
         <font size="2">Método responsável por adicionar objeto na lista de Usuários.</font>
         ```html
         <a asp-action="Excluir" asp-route-id="@u.IdUsuario" class="btn btn-sm btn-danger">Excluir</a>
         ```
-    11. Método responsáve pela exclusão do usuários da lista:
+    11. Método responsáve pela exclusão do usuários da lista:  
         ```cs
         public static void Excluir(int IdUsuario)
         {
@@ -382,7 +382,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
             }
         }
         ```
-    12. Adicionar action "Excluir" do tipo Get e Post ao HomeController.cs:
+    12. Adicionar action "Excluir" do tipo Get e Post ao HomeController.cs:  
         <font size="2">Método do tipo Get exibe a view "Excluir" logo após clicar em "Excluir" no usuário na tabela - Ao confirmar, executa o submit - que usa o método do tipo Post, que então efetua a exclusão.</font>
         ```cs
         [HttpGet]
@@ -414,7 +414,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
     <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
 
-    - Criar pasta shared e arquivo `Views\Shared\_Layout.cshtml`
+    - Criar pasta shared e arquivo `Views\Shared\_Layout.cshtml`  
         `_Layout` contém o `hml` padrão para todas as views
         - Inluído [navbar bootstrap5](https://getbootstrap.com/docs/5.0/components/navbar/)
         - Incluir fundo escuro navbar - `<nav class="navbar navbar-expand-lg navbar-dark bg-dark">`
@@ -462,7 +462,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
 
         </html>
         ```
-    - Criar view `Views\_ViewStart.cshtml` 
+    - Criar view `Views\_ViewStart.cshtml`  
         Para conter os códigos repetitivos, diminuindo a redundância - Arquivo que por convenção é executado primeiro na renderização de todas as views.
         É incluído de forma automática em todas as views. Então podemos Colocar neste arquivo a configurção `Layout`
         ```C#
@@ -471,7 +471,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
         }
         ```
     
-    - Criar view `Views\_ViewImports.cshtml` 
+    - Criar view `Views\_ViewImports.cshtml`  
         Também para diminuir redundância, tirando códigos repetitivos das outras views e concentrando nesta.
         Adicionado `tagHelper`
         ```C#
@@ -516,8 +516,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
     <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
     
-    - Modificar o método `Excluir` em `Usuario.cs`
-
+    - Modificar o método `Excluir` em `Usuario.cs`  
         `Incluir retorno bool`
         ````cs
         public static bool Excluir(int IdUsuario)
@@ -531,8 +530,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
             return false;
         }
         ````
-    - Modificar action HttpPost `Excluir`
-
+    - Modificar action HttpPost `Excluir`  
         `Retorna O resultado da exclusão`
         ````cs
         [HttpPost]
@@ -547,8 +545,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
             return RedirectToAction("Usuarios");
         }
         ````
-    - Modificar `Usuarios.cshtml`
-
+    - Modificar `Usuarios.cshtml`  
         Mostrar mensagem de status da exclusão na página - [bootstrap Alert](https://getbootstrap.com/docs/5.3/components/alerts/)
         ````cs
         //...
@@ -577,17 +574,15 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
         }
         //...
         ````
-    - `Opção1` JavaScript  bootstrap
-
-        `Opção1` Adicionar java script bootstrap em `_Layout.cshtml` que adiciona código de script é adicionado a todas as páginas
+    - `Opção1` JavaScript  bootstrap  
+        Adicionar java script bootstrap em `_Layout.cshtml` que adiciona código de script é adicionado a todas as páginas
         ````html
         //...
         <script src="/lib/bootstrap5/dist/js/bootstrap.js"></script>
         </body>
         </html>
         ````
-    - `Opção2` JavaScript  bootstrap
-
+    - `Opção2` JavaScript  bootstrap  
         Adicionar section com tag do javaScript do bootstrap em `Usuarios.cshtml`. Desta forma, só será incluído o JavaScript bootstrap caso esteja definido em uma section da página
         ````cs
         //...
@@ -595,8 +590,8 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
             <script src="/lib/bootstrap5/dist/js/bootstrap.js"></script>
         }
         ````
-        Adicionar `RenderSection` em `_Layout.cshtml`
-        Aqui(nesta posição do código html) será renderizada a section de nome `Scripts`.  Não importa qual posição da view está a section.
+        Adicionar `RenderSection` em `_Layout.cshtml`  
+        Aqui(nesta posição do código html) será renderizada a section de nome `Scripts`.  Não importa qual posição da view está a section.  
         ````cs
         //...
         @* O parâmetro false, indica que não é obrigatório existir esta section nas páginas que herdam _Layout. As views só definem se quiserem *@
@@ -606,6 +601,58 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
 
         </html>
         ````
+    - Adicionar Footer  
+        Adicionar Footer com um renderSection Footer em _Layout.cshtml  
+        ````cs
+        <div class="text-light bg-dark p-3 fixed-bottom text-center">
+            Todos os direitos reservados<br>
+            @RenderSection("Footer",false)
+        </div>
+        ````  
+        Adicionar section Footer em index.cshtml  
+        ````cs
+        //...
+        @section Footer{
+            <span>Página Principal</span>
+        }
+        ````  
+        Adiciona RenderSection LogoPagina em _Layout.cshtml  
+        Caso a pagina que herda layout possua uma sessão LogoPagina, então, mostra imagem definida nesta sessão, senão, mostra uma imagem padrão.  
+        ````cs
+        <body>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                        @if (IsSectionDefined("LogoPagina"))
+                        {
+                            @RenderSection("LogoPagina", false)
+                        }else
+                        {
+                            <img src="/img/pagina.png" height="24" class="d-inline-block align-text-bottom">
+                        }
+                        Controle de Usuários
+                    </a>
+        //...
+        ````  
+    - Adicionar pasta wwwroot/img com 3 imagens  
+        `form.png, pagina.png e usuarios.png`  
+    - Adicionar section `LogoPagina` e `Usuarios.cshtml`  
+        ````cs
+        //...
+        @section LogoPagina{
+            <img src="/img/usuarios.png" height="24" class="d-inline-block align-text-bottom">
+        }
+        ````  
+    - Adicionar section `LogoPagina` e `Cadastrar.cshtml ` 
+        ````cs
+        //...
+        @section LogoPagina {
+            <img src="/img/form.png" height="24" class="d-inline-block align-text-bottom">
+        }
+        ````
+        
+        
+        
 
 
 
