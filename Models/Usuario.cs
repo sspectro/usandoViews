@@ -48,13 +48,15 @@ namespace UsandoViews.Models
             }
         }
 
-        public static void Excluir(int IdUsuario)
+        public static bool Excluir(int IdUsuario)
         {
             var usuarioExistente = Usuario.listagem.Find(u => u.IdUsuario == IdUsuario);
             if (usuarioExistente != null)
             {
-                Usuario.listagem.Remove(usuarioExistente);
+                //Retorna um booleano 
+                return Usuario.listagem.Remove(usuarioExistente);
             }
+            return false;
         }
     }
 }

@@ -6,6 +6,30 @@
 <h1 class="text-primary">Usuários</h1>
 <hr>
 <a href="/Home/Cadastrar" class="btn btn-primary">Novo Usuário</a>
+@* se renderizada após exclusão de usuário, será diferente de null *@
+@* @if(ViewBag.Excluiu != null) *@
+@if (TempData.ContainsKey("Excluiu"))
+{
+    var excluiu = (bool)TempData["Excluiu"];
+    if (excluiu)
+    {
+        @* <h5>Usuário excluído com sucesso.</h5> *@
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Usuário excluído com sucesso!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    else
+    {
+        @* <h5>Não foi possível excluir o usuário.</h5> *@
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Não foi possível excluir o usuário.</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+}
+
+
 <table class="table">
     <thead>
         <tr>
@@ -30,3 +54,7 @@
     </tbody>
 
 </table>
+
+@section Scripts{
+    <script src="/lib/bootstrap5/dist/js/bootstrap.js"></script>
+}

@@ -7,6 +7,8 @@ namespace UsandoViews.Controllers
     {
         public IActionResult Index()
         {
+            //Opão de configuração de Subtitulo da págia via action da página
+            //ViewBag.Subtitulo = "Página Principal";
             ViewBag.QtdeUsuarios = Usuario.Listagem.Count();
             return View();
         }
@@ -52,7 +54,12 @@ namespace UsandoViews.Controllers
         [HttpPost]
         public IActionResult Excluir(Usuario usuario)
         {
-            Usuario.Excluir(usuario.IdUsuario);
+            //Usando ViewBag ao reprocessar página - perde o valor passado
+            //ViewBag.Excluiu = Usuario.Excluir(usuario.IdUsuario);
+
+            //Não perde o valor ao reprocessar página - fica armazenado em cookies - tempo de vida é de uma requisição
+            TempData["Excluiu"] = Usuario.Excluir(usuario.IdUsuario);
+
             return RedirectToAction("Usuarios");
         }
     }

@@ -5,25 +5,13 @@
 >>Ricardo Maroquio [Desenvolvimento Web com ASP.NET - Criando a Aplicação Web Partindo de um Template Mínimo](https://www.youtube.com/watch?v=qom0aOGSDRs&list=PL0YuSuacUEWuN8xnvk2b5yW_koKbkHh_m&index=8)
 Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
 
-## Publicação no Azure App Services:
-1. <span style="color:383E42"><b>Criar App Service</b></span>
-    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
-    <p>
+## Ambiente de Desenvolvimento e Tecnologias:
+    C#, Windows, Bootstrap5, CSS, HTML
 
-    1. Inclusão README (estrutura básica), gitignore e imagens para o README
-    2. Criação arquivo `global.json`
-        ```sh
-        dotnet new globaljson --sdk-version 6.0
-        ```
-    3. Criar Projeto web com template mínimo
-        ```sh
-        dotnet new web --no-https --framework net6.0
-        ```
-    </p>
+## Documentação
+- [C#](https://learn.microsoft.com/pt-br/dotnet/csharp/)
+- [Bootstrap5](https://getbootstrap.com/)
 
-    </details> 
-
-    ---
 
 ## Desenvolvimento:
 1. <span style="color:383E42"><b>Incluir/Criar arquivos iniciais</b></span>
@@ -423,7 +411,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
     ---
 
 8. <span style="color:383E42"><b>Usando Páginas de Layout e ViewBag em um CRUD</b></span>
-    <!-- <details><summary><span style="color:Chocolate">Detalhes</span></summary> -->
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
 
     - Criar pasta shared e arquivo `Views\Shared\_Layout.cshtml`
@@ -502,6 +490,13 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
         <h3 class="text-info">Usuários Cadastrados: @ViewBag.QtdeUsuarios</h3>
         <a href="/Home/Usuarios" class="btn btn-primary">Usuário</a>
         ```
+        Caso precise, pode enviar a configuração do subtitulo da página da action, basta comentar ou remover a configuração na página html
+        ````cs
+        public IActionResult Index()
+        {
+            ViewBag.Subtitulo = "Página Principal";
+             //...
+        ````
 
     - Atribuindo valor a  `ViewBag.QtdeUsuarios` em Action Index `Controllers\HomeController.cs`
         ```C#
@@ -516,6 +511,112 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
     </details> 
     
     ---
+
+9. <span style="color:383E42"><b>Usando Views Parciais e TempData em um CRUD</b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <p>
+    
+    - Modificar o método `Excluir` em `Usuario.cs`
+
+        `Incluir retorno bool`
+        ````cs
+        public static bool Excluir(int IdUsuario)
+        {
+            var usuarioExistente = Usuario.listagem.Find(u => u.IdUsuario == IdUsuario);
+            if (usuarioExistente != null)
+            {
+                //Retorna um booleano 
+                return Usuario.listagem.Remove(usuarioExistente);
+            }
+            return false;
+        }
+        ````
+    - Modificar action HttpPost `Excluir`
+
+        `Retorna O resultado da exclusão`
+        ````cs
+        [HttpPost]
+        public IActionResult Excluir(Usuario usuario)
+        {
+            //Usando ViewBag ao reprocessar página - perde o valor passado
+            //ViewBag.Excluiu = Usuario.Excluir(usuario.IdUsuario);
+
+            //Não perde o valor ao reprocessar página - fica armazenado em cookies - tempo de vida é de uma requisição
+            TempData["Excluiu"] = Usuario.Excluir(usuario.IdUsuario);
+
+            return RedirectToAction("Usuarios");
+        }
+        ````
+    - Modificar `Usuarios.cshtml`
+
+        Mostrar mensagem de status da exclusão na página - [bootstrap Alert](https://getbootstrap.com/docs/5.3/components/alerts/)
+        ````cs
+        //...
+        <a href="/Home/Cadastrar" class="btn btn-primary">Novo Usuário</a>
+        @* se renderizada após exclusão de usuário, será diferente de null *@
+        @* @if(ViewBag.Excluiu != null) *@
+        @if (TempData.ContainsKey("Excluiu"))
+        {
+            var excluiu = (bool)TempData["Excluiu"];
+            if (excluiu)
+            {
+                @* <h5>Usuário excluído com sucesso.</h5> *@
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Usuário excluído com sucesso!</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            else
+            {
+                @* <h5>Não foi possível excluir o usuário.</h5> *@
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Não foi possível excluir o usuário.</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+        }
+        //...
+        ````
+    - `Opção1` JavaScript  bootstrap
+
+        `Opção1` Adicionar java script bootstrap em `_Layout.cshtml` que adiciona código de script é adicionado a todas as páginas
+        ````html
+        //...
+        <script src="/lib/bootstrap5/dist/js/bootstrap.js"></script>
+        </body>
+        </html>
+        ````
+    - `Opção2` JavaScript  bootstrap
+
+        Adicionar section com tag do javaScript do bootstrap em `Usuarios.cshtml`. Desta forma, só será incluído o JavaScript bootstrap caso esteja definido em uma section da página
+        ````cs
+        //...
+        @section Scripts{
+            <script src="/lib/bootstrap5/dist/js/bootstrap.js"></script>
+        }
+        ````
+        Adicionar `RenderSection` em `_Layout.cshtml`
+        Aqui(nesta posição do código html) será renderizada a section de nome `Scripts`.  Não importa qual posição da view está a section.
+        ````cs
+        //...
+        @* O parâmetro false, indica que não é obrigatório existir esta section nas páginas que herdam _Layout. As views só definem se quiserem *@
+
+        @RenderSection("Scripts", false)
+        </body>
+
+        </html>
+        ````
+
+
+
+
+    </p>
+
+    </details> 
+    
+    ---
+
+
 
 ## Autor
 ><span style="color:383E42"><b>Cristiano Mendonça Gueivara</b> </span>
