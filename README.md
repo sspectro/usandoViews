@@ -491,12 +491,12 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
         <a href="/Home/Usuarios" class="btn btn-primary">Usuário</a>
         ```
         Caso precise, pode enviar a configuração do subtitulo da página da action, basta comentar ou remover a configuração na página html
-        ````cs
+        ```cs
         public IActionResult Index()
         {
             ViewBag.Subtitulo = "Página Principal";
              //...
-        ````
+        ```
 
     - Atribuindo valor a  `ViewBag.QtdeUsuarios` em Action Index `Controllers\HomeController.cs`
         ```C#
@@ -518,7 +518,7 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
     
     - Modificar o método `Excluir` em `Usuario.cs`  
         `Incluir retorno bool`
-        ````cs
+        ```cs
         public static bool Excluir(int IdUsuario)
         {
             var usuarioExistente = Usuario.listagem.Find(u => u.IdUsuario == IdUsuario);
@@ -529,10 +529,10 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
             }
             return false;
         }
-        ````
+        ```
     - Modificar action HttpPost `Excluir`  
         `Retorna O resultado da exclusão`
-        ````cs
+        ```cs
         [HttpPost]
         public IActionResult Excluir(Usuario usuario)
         {
@@ -544,10 +544,10 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
 
             return RedirectToAction("Usuarios");
         }
-        ````
+        ```
     - Modificar `Usuarios.cshtml`  
         Mostrar mensagem de status da exclusão na página - [bootstrap Alert](https://getbootstrap.com/docs/5.3/components/alerts/)
-        ````cs
+        ```cs
         //...
         <a href="/Home/Cadastrar" class="btn btn-primary">Novo Usuário</a>
         @* se renderizada após exclusão de usuário, será diferente de null *@
@@ -573,26 +573,26 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
             }
         }
         //...
-        ````
+        ```
     - `Opção1` JavaScript  bootstrap  
         Adicionar java script bootstrap em `_Layout.cshtml` que adiciona código de script é adicionado a todas as páginas
-        ````html
+        ```html
         //...
         <script src="/lib/bootstrap5/dist/js/bootstrap.js"></script>
         </body>
         </html>
-        ````
+        ```
     - `Opção2` JavaScript  bootstrap  
         Adicionar section com tag do javaScript do bootstrap em `Usuarios.cshtml`. Desta forma, só será incluído o JavaScript bootstrap caso esteja definido em uma section da página
-        ````cs
+        ```cs
         //...
         @section Scripts{
             <script src="/lib/bootstrap5/dist/js/bootstrap.js"></script>
         }
-        ````
+        ```
         Adicionar `RenderSection` em `_Layout.cshtml`  
         Aqui(nesta posição do código html) será renderizada a section de nome `Scripts`.  Não importa qual posição da view está a section.  
-        ````cs
+        ```cs
         //...
         @* O parâmetro false, indica que não é obrigatório existir esta section nas páginas que herdam _Layout. As views só definem se quiserem *@
 
@@ -600,25 +600,25 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
         </body>
 
         </html>
-        ````
+        ```
     - Adicionar Footer  
         Adicionar Footer com um renderSection Footer em _Layout.cshtml  
-        ````cs
+        ```cs
         <div class="text-light bg-dark p-3 fixed-bottom text-center">
             Todos os direitos reservados<br>
             @RenderSection("Footer",false)
         </div>
-        ````  
+        ```  
         Adicionar section Footer em index.cshtml  
-        ````cs
+        ```cs
         //...
         @section Footer{
             <span>Página Principal</span>
         }
-        ````  
+        ``` 
         Adiciona RenderSection LogoPagina em _Layout.cshtml  
         Caso a pagina que herda layout possua uma sessão LogoPagina, então, mostra imagem definida nesta sessão, senão, mostra uma imagem padrão.  
-        ````cs
+        ```cs
         <body>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container">
@@ -633,23 +633,40 @@ Youtuber - [Ricardo Maroquio](https://www.youtube.com/@maroquio)
                         Controle de Usuários
                     </a>
         //...
-        ````  
+        ```  
     - Adicionar pasta wwwroot/img com 3 imagens  
         `form.png, pagina.png e usuarios.png`  
     - Adicionar section `LogoPagina` e `Usuarios.cshtml`  
-        ````cs
+        ```cs
         //...
         @section LogoPagina{
             <img src="/img/usuarios.png" height="24" class="d-inline-block align-text-bottom">
         }
-        ````  
+        ``` 
     - Adicionar section `LogoPagina` e `Cadastrar.cshtml ` 
-        ````cs
+        ```cs
         //...
         @section LogoPagina {
             <img src="/img/form.png" height="24" class="d-inline-block align-text-bottom">
         }
-        ````
+        ```
+    - Incluir view parcial `MensagemInfo.cshtml`  
+        Irá conter o html com mensagem de alerta `success`
+        ```cshtml
+        @* Define o modelo desta view como do tipo string *@
+        @model String
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @* O model String informado acima será renderizado aqui *@
+            @Model
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        ```
+    - Incluir view parcial `MensagemErro.cshtml`  
+        Irá conter o html com mensagem de alerta warning
+        ```cs
+
+        ```
+
         
         
         

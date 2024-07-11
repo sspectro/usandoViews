@@ -14,18 +14,26 @@
     if (excluiu)
     {
         @* <h5>Usuário excluído com sucesso.</h5> *@
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @* ------- *@
+@*         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>Usuário excluído com sucesso!</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+        </div> *@
+
+        @* name Contém o nome da view parcial e model contém o modelo passado pra view. Neste caso um objeto string *@
+        <partial name="_MensagemInfo" model="@("Usuário excluído com sucesso.")"></partial>
     }
     else
     {
         @* <h5>Não foi possível excluir o usuário.</h5> *@
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @* -------- *@
+      @*<div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>Não foi possível excluir o usuário.</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+        </div> *@
+        @* ------------ *@
+        @* name Contém o nome da view parcial e model contém o modelo passado pra view. Neste caso um objeto string *@
+        <partial name="_MensagemErro" model="@("Não foi possível excluir o usuário.")"></partial>
     }
 }
 
